@@ -16,9 +16,9 @@ def load_config(config_path: str = 'config.yaml') -> dict:
     default_config = {
         'data': {'filepath': 'dataset/creditcard.csv', 'test_size': 0.2, 'random_state': 42},
         'models': {
-            'logistic_regression': {'enabled': True, 'max_iter': 1000, 'random_state': 42, 'class_weight': 'balanced'},
-            'random_forest': {'enabled': True, 'n_estimators': 150, 'random_state': 42, 'class_weight': 'balanced'},
-            'xgboost': {'enabled': True, 'n_estimators': 100, 'learning_rate': 0.1, 'random_state': 42, 'scale_pos_weight': 289}
+            'logistic_regression': {'enabled': True, 'max_iter': 1000, 'random_state': 42 },
+            'random_forest': {'enabled': True, 'n_estimators': 150, 'random_state': 42},
+            'xgboost': {'enabled': True, 'n_estimators': 100, 'learning_rate': 0.1, 'random_state': 42}
         },
         'evaluation': {'metrics': ['precision', 'recall', 'f1_score', 'roc_auc']},
         'preprocessing': {'stratify': True, 'scaling': True, 'oversampling': True, 'amount_threshold': 200},

@@ -23,7 +23,9 @@ def build_model(config: Dict[str, Any]) -> Dict[str, Any]:
         models['Logistic Regression'] = LogisticRegression(
             max_iter=lr_params.get('max_iter', 1000),
             random_state=lr_params.get('random_state', 42),
-            class_weight=lr_params.get('class_weight', 'balanced')
+            solver = lr_params.get('solver', 'saga'),
+            C= lr_params.get('C', 0.1)
+            # class_weight=lr_params.get('class_weight', 'balanced')
         )
     
     #Random Forest
@@ -32,7 +34,7 @@ def build_model(config: Dict[str, Any]) -> Dict[str, Any]:
         models['Random Forest'] = RandomForestClassifier(
             n_estimators=rf_params.get('n_estimators', 150),
             random_state=rf_params.get('random_state', 42),
-            class_weight=rf_params.get('class_weight', 'balanced')
+            # class_weight=rf_params.get('class_weight', 'balanced')
         )
 
     # XGBoost
@@ -42,7 +44,7 @@ def build_model(config: Dict[str, Any]) -> Dict[str, Any]:
             n_estimators=xgb_params.get('n_estimators', 100),
             learning_rate=xgb_params.get('learning_rate',0.1),
             random_state=xgb_params.get('random_state', 42),
-            scale_pos_weight=xgb_params.get('scale_pos_weight', 289)
+            # scale_pos_weight=xgb_params.get('scale_pos_weight', 289)
         )
 
     logging.info(f"Built {len(models)} models: {list(models.keys())}")

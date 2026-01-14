@@ -13,6 +13,7 @@ from src.data_loader import load_data, preprocess_data, split_data
 from src.model_builder import build_model
 from src.model_evaluator import evaluate_model
 from src.visualizer import plot_all_metrics
+from src.data_preprocessor import apply_smote
 
 
 def main():
@@ -35,6 +36,7 @@ def main():
     X, y = load_data(config['data']['filepath'])
     X_processed = preprocess_data(X)
     X_train, X_test, y_train, y_test = split_data(X_processed, y)
+    X_resampled, y_resampled = apply_smote(X_train, y_train)
     
     # 3. Build models
     models = build_model(config)
@@ -48,7 +50,7 @@ def main():
         logging.info(f"{'='*60}")
         
         # Train
-        model.fit(X_train, y_train)
+        model.fit(X_resampled, y_resampled)
         
         # Evaluate
         results = evaluate_model(model, X_test, y_test, name)
