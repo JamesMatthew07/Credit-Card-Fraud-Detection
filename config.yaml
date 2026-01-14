@@ -1,0 +1,45 @@
+#Credit card fraud detection configuration file
+
+data:
+  filepath: "dataset/creditcard.csv"
+  test_size: 0.2
+  random_state: 42
+
+models:
+  logistic_regression:
+    enabled: true
+    max_iter: 1000
+    random_state: 42
+    class_weight: "balanced"
+
+  random_forest:
+    enabled: true
+    n_estimators: 150
+    random_state: 42
+    class_weight: "balanced"
+
+  xgboost:
+    enabled: true
+    n_estimators: 100
+    learning_rate: 0.1
+    random_state: 42
+    scale_pos_weight: 289
+
+evaluation:
+  metrics:
+    - precision
+    - recall
+    - f1_score
+    - roc_auc
+
+preprocessing:
+  stratify: true
+  scaling: true
+  oversampling: true
+  amount_threshold: 200
+
+visualization:
+  show_plots: true
+  figure_width: 12
+  figure_height: 8
+  output_dir: "plots/results"
