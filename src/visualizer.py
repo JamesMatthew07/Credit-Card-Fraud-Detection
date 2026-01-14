@@ -52,6 +52,23 @@ def plot_roc_curve(y_test, y_proba, model_name: str, output_dir: str = 'plots/re
     plt.close()
     logging.info(f"Saved ROC curve for {model_name}")
 
+def plot_pr_curve(y_test, y_proba, model_name: str, output_dir: str = 'plots/results'):
+    """Plot Precision-Recall curve."""
+    os.makedirs(output_dir, exist_ok=True)
+    
+    precision, recall, _ = precision_recall_curve(y_test, y_proba)
+    
+    plt.figure(figsize=(8, 6))
+    plt.plot(recall, precision, label=f'{model_name}')
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title(f'Precision-Recall Curve - {model_name}')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, f'pr_curve_{model_name.lower().replace(" ", "_")}.png'))
+    plt.close()
+    logging.info(f"Saved Precision-Recall curve for {model_name}")
+
 
 def plot_all_metrics(results: Dict[str, Any], y_test, model_name: str, output_dir: str = 'plots/results'):
     """Generate all visualization plots for a model."""
@@ -59,5 +76,8 @@ def plot_all_metrics(results: Dict[str, Any], y_test, model_name: str, output_di
     
     plot_confusion_matrix(results['confusion_matrix'], model_name, output_dir)
     plot_roc_curve(y_test, results['y_proba'], model_name, output_dir)
+    plot_pr_curve(y_test, results['y_proba'], model_name, output_dir)
     
     logging.info(f"All visualizations saved to {output_dir}")
+
+

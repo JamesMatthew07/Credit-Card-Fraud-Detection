@@ -65,6 +65,7 @@ def main():
         print(f"  Recall:    {results['recall']:.4f}")
         print(f"  F1 Score:  {results['f1_score']:.4f}")
         print(f"  ROC-AUC:   {results['roc_auc']:.4f}")
+        print(f"  Avg Precision Score: {results['average_precision_score']:.4f}")
     
     # 5. Summary comparison
     logging.info(f"\n{'='*60}")
@@ -76,7 +77,7 @@ def main():
     print("=" * 70)
     
     for name, results in all_results.items():
-        print(f"{name:<25} {results['precision']:<12.4f} {results['recall']:<12.4f} {results['f1_score']:<12.4f} {results['roc_auc']:<12.4f}")
+        print(f"{name:<25} {results['precision']:<12.4f} {results['recall']:<12.4f} {results['f1_score']:<12.4f} {results['roc_auc']:<12.4f} {results['average_precision_score']:<12.4f}")
     
     print("=" * 70)
     logging.info("Pipeline completed successfully!")

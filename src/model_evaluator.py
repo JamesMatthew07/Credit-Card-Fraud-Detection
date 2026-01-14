@@ -3,7 +3,7 @@ import numpy as np
 
 from sklearn.metrics import (
     precision_score, recall_score, f1_score, roc_auc_score, 
-    confusion_matrix, classification_report
+    confusion_matrix, classification_report, average_precision_score
 )
 
 from typing import Dict, Any
@@ -31,6 +31,7 @@ def evaluate_model(model, X_test, y_test, model_name: str) -> Dict[str, Any]:
         'f1_score': f1_score(y_test, y_pred),
         'roc_auc': roc_auc_score(y_test, y_proba),
         'confusion_matrix': confusion_matrix(y_test, y_pred),
+        'average_precision_score': average_precision_score(y_test, y_proba),
         'y_pred': y_pred,
         'y_proba': y_proba
     }
