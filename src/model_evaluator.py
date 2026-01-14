@@ -8,6 +8,7 @@ from sklearn.metrics import (
 
 from typing import Dict, Any
 
+
 def evaluate_model(model, X_test, y_test, model_name: str) -> Dict[str, Any]:
     """Evaluate a trained model on test data.
     
@@ -36,4 +37,23 @@ def evaluate_model(model, X_test, y_test, model_name: str) -> Dict[str, Any]:
         'y_proba': y_proba
     }
 
+    return results
+
+def evaluate_thresholds(y_test, y_proba, thresholds: list) -> dict:
+    """Evaluate model performance at different classification thresholds.
+    
+    Args:
+        y_test: True labels
+        y_proba: Predicted probabilities for the positive class
+        thresholds: List of thresholds to evaluate
+        
+    Returns:
+        Dictionary mapping threshold to classification report
+    """
+    results = {}
+    for threshold in thresholds:
+        y_pred_thresholded = (y_proba >= threshold).astype(int)
+        report = classification_report(y_test, y_pred_thresholded, output_dict=True)
+        results[threshold] = report
+        logging.info(f"Threshold: {threshold:.2f} - Precision: {report['1']['precision']:.4f}, Recall: {report['1']['recall']:.4f}, F1-Score: {report['1']['f1-score']:.4f}")
     return results

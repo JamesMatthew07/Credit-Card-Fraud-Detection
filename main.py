@@ -11,7 +11,7 @@ import logging
 from src.config_loader import load_config
 from src.data_loader import load_data, preprocess_data, split_data
 from src.model_builder import build_model
-from src.model_evaluator import evaluate_model
+from src.model_evaluator import evaluate_model, evaluate_thresholds
 from src.visualizer import plot_all_metrics
 from src.data_preprocessor import apply_smote
 
@@ -43,8 +43,12 @@ def main():
     
     # 4. Train and evaluate each model
     all_results = {}
+
     
     for name, model in models.items():
+
+        evaluate_thresholds_list = [0.3, 0.5, 0.7]
+
         logging.info(f"\n{'='*60}")
         logging.info(f"Training {name}...")
         logging.info(f"{'='*60}")
@@ -55,6 +59,9 @@ def main():
         # Evaluate
         results = evaluate_model(model, X_test, y_test, name)
         all_results[name] = results
+
+        if name == "Random Forest":  # Only for RF, or remove this if you want all models
+            evaluate_thresholds(y_test, results['y_proba'], evaluate_thresholds_list)
         
         # Visualize
         plot_all_metrics(results, y_test, name, config['visualization']['output_dir'])
