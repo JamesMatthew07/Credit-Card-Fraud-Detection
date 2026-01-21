@@ -356,18 +356,6 @@ If dataset is too large, consider:
 - Try different algorithms
 - Add feature engineering
 
-## License
-
-[Add your license information here]
-
-## Contributing
-
-[Add contribution guidelines here]
-
-## Contact
-
-[Add contact information here]
-
 ## Acknowledgments
 
 - Dataset: Kaggle Credit Card Fraud Detection Dataset
